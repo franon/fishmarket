@@ -8,10 +8,10 @@ class model_seller extends CI_Model {
         $this->sellerdb = $this->load->database('seller',TRUE);
     }
     
-    public function getBarang(){
-        // var_dump($this->sellerdb->get('tfishpriceofproductitems')->result());
-        return $this->sellerdb->get('tfishpriceofproductitems')->result();
-    }
+    // public function getBarang(){
+    //     // var_dump($this->sellerdb->get('tfishpriceofproductitems')->result());
+    //     return $this->sellerdb->get('tfishpriceofproductitems')->result();
+    // }
 
     
     
@@ -41,6 +41,12 @@ class model_seller extends CI_Model {
         // AND tfishpriceofproductitems.idfishkios=tfishkiosproductidentity.idfishkios 
         // AND tfishselerregister.idfishowner=tfishkiosproductidentity.idfishowner
     
+        public function hapusBarang($fishkodeofproductsale){
+            // $this->sellerdb->where('fishkodeofproductsale',$fishkodeofproductsale);
+            // $this->sellerdb->delete('tfishpriceofproductitems');
+    
+            return $this->sellerdb->delete('tfishpriceofproductitems',array('fishkodeofproductsale'=>$fishkodeofproductsale));
+        }
 
 }
 ?>

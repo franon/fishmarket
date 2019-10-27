@@ -41,7 +41,7 @@
           </tr>
         </tfoot>
         
-        <!-- <?php foreach ($barang as $brg): ?> -->
+        <?php foreach ($barang as $brg): ?>
           <tbody>
             <tr>
               <?= var_dump($brg);?>
@@ -53,10 +53,14 @@
             <td><?= $brg->fishquantity ?></td>
             <td><?= $brg->fishopendateofproductPrice ?></td>
             <td><?= $brg->fishnoteofproduct ?></td>
-            <td>Delete</td>
+            <td width="250">
+            <!-- <a href="" class="btn btn-small"><i class="fas fa-edit"></i> Edit</a> -->
+            <a onclick="deleteConfirm('<?= base_url('seller/products/delete/'); ?>')" href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
+            </td>
+            
             </tr>
           </tbody>
-        <!-- <?php endforeach; ?> -->
+        <?php endforeach; ?>
         <tbody>
           <tr>
             <td>Tiger Nixon</td>
