@@ -8,8 +8,12 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-    <?php var_dump($_SESSION); ?>
+    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6><br>
+
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal"><i class="fas fa-plus"></i>Tambah data</button>
+    <br><?php var_dump($_SESSION); ?>
+
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -55,7 +59,10 @@
             <td><?= $brg->fishnoteofproduct ?></td>
             <td width="250">
             <!-- <a href="" class="btn btn-small"><i class="fas fa-edit"></i> Edit</a> -->
-            <a onclick="deleteConfirm('<?= base_url('seller/products/delete/'); ?>')" href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
+            <!-- <a onclick="deleteConfirm('<?= base_url('seller/products/delete/'.$brg->fishkodeofproductsale); ?>')" 
+            href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a> -->
+            <a href="<?= base_url('seller/products/delete/'.$brg->fishkodeofproductsale); ?>" class="btn btn-small text-danger">
+            <i class="fas fa-trash">Hapus</i></a>
             </td>
             
             </tr>

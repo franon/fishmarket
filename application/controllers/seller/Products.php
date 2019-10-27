@@ -14,7 +14,7 @@ class Products extends CI_Controller{
     }
 
     public function index(){
-        print_r($_SESSION);
+        print_r($_SESSION); 
         $this->load->view('seller/header');
         $username = $_SESSION['admin_username'];
         $data['barang'] = $this->model_seller->getBarangSpesific($username);
@@ -39,6 +39,8 @@ class Products extends CI_Controller{
             redirect('seller/products','refresh');
             
         }
+        
+        $this->load->view('seller/footer');
     }
     
 }

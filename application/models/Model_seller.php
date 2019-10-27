@@ -42,9 +42,6 @@ class model_seller extends CI_Model {
         // AND tfishselerregister.idfishowner=tfishkiosproductidentity.idfishowner
     
         public function hapusBarang($fishkodeofproductsale){
-            // $this->sellerdb->where('fishkodeofproductsale',$fishkodeofproductsale);
-            // $this->sellerdb->delete('tfishpriceofproductitems');
-    
             return $this->sellerdb->delete('tfishpriceofproductitems',array('fishkodeofproductsale'=>$fishkodeofproductsale));
         }
 
