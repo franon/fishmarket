@@ -13,7 +13,6 @@ class model_sellerLogin extends CI_Model {
         $this->sellerdb->where('fishownerusername',$username);
         $query = $this->sellerdb->get('tfishselerregister')->result();
         return $query;
-
     }
 
     public function register($email,$fullname,$username,$password){
@@ -28,5 +27,7 @@ class model_sellerLogin extends CI_Model {
         // var_dump($this->sellerdb->set($data)->get_compiled_insert('tfishselerregister')); 
         return $this->sellerdb->insert('tfishselerregister', $data);
     }
+
+    
 }
 ?>

@@ -8,13 +8,16 @@ Class seller extends CI_Controller {
         parent::__construct();
         $this->load->database('seller',TRUE);
         $this->load->model('model_sellerLogin');
+        $this->load->model('model_seller');
 
     }
 
     public function index(){
-
         print_r($_SESSION);
+
+        $this->load->view('seller/header');
         $this->load->view('seller/dashboard');
+        $this->load->view('seller/footer');
     }
     
     public function login(){
@@ -23,10 +26,11 @@ Class seller extends CI_Controller {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $seller = $this->model_sellerLogin->get($username);
-
+        print_r($_SESSION);
+        
         if(empty($seller[0])){
             $this->session->set_flashdata('message', 'Kamu belum terdaftar');
-            // redirect('seller/index');
+            // redirect('seller/login');
         }else{
             var_dump($seller[0]);
             if (md5($password) == $seller[0]->fishownerpassword) {
@@ -38,10 +42,10 @@ Class seller extends CI_Controller {
                 );
 
                 $this->session->set_userdata($session);
-                redirect('seller/Login');
+                redirect('seller/index');
             }else{
                 $this->session->set_flashdata('message', 'username atau password salah');
-                // redirect('seller/index');
+                redirect('seller/index');
             }
         }
 
@@ -52,7 +56,7 @@ Class seller extends CI_Controller {
         $this->session->unset_userdata('admin_authenticated');
         $this->session->unset_userdata('admin_username');
         $this->session->unset_userdata('admin_nama');
-        redirect('seller/index');
+        redirect('seller/login');
         }
     
     public function register(){
@@ -79,10 +83,27 @@ Class seller extends CI_Controller {
         
     }
     
-    public function tambahProduct(){
-
-
+    public function dataBarang(){
+        $this->load->view('seller/header');
+        // $data['barang'] = $this->model_seller->getBarang();
+        // var_dump($_SESSION['admin_username']);
+        $this->load->view('seller/Data_barang');
+        $this->load->view('seller/footer');
     }
+
+    public function dataBarangSeller(){
+        $this->load->view('seller/header');
+        $username = $_SESSION['admin_username'];
+        $data['barang'] = $this->model_seller->getBarangSpesific($username);
+        // var_dump($data);
+        $this->load->view('seller/Data_barang',$data);
+        $this->load->view('seller/footer');
+    }
+
+    public function tambahProduct(){
+        
+    }
+
 
 }
 
