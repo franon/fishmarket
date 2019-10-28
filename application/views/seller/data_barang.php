@@ -12,7 +12,7 @@
 
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal"><i class="fas fa-plus"></i>Tambah data</button>
-    <br><?php var_dump($_SESSION); ?>
+    <!-- <br><?php var_dump($_SESSION); ?> -->
 
   </div>
   <div class="card-body">
@@ -48,7 +48,7 @@
         <?php foreach ($barang as $brg): ?>
           <tbody>
             <tr>
-              <?= var_dump($brg);?>
+              <!-- <?= var_dump($brg);?> -->
             <td><?= $brg->idfishkios ?></td>
             <td><?= $brg->fishownerusername?></td>
             <td><?= $brg->fishkodeofproductsale ?></td>
