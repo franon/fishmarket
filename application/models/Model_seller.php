@@ -45,5 +45,20 @@ class model_seller extends CI_Model {
             return $this->sellerdb->delete('tfishpriceofproductitems',array('fishkodeofproductsale'=>$fishkodeofproductsale));
         }
 
+        public function tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishopendateofproductPrice,$fishnoteofproduct){
+            $data = array(
+                'fishkodeofproductsale'=>$idfishkios,
+                'fishkodeofproductsale'=>$fishkodeofproductsale,
+                'fishgenericproductname'=>$fishgenericproductname,
+                'fishregularprice'=>$fishregularprice,
+                'fishopendateofproductPrice'=>$fishopendateofproductPrice,
+                'fishflagofproduct'=>'0',
+                'fishnoteofproduct'=>$fishnoteofproduct
+            );
+            var_dump($this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems'));
+            // return $this->sellerdb->insert('tfishpriceofproductitems');
+            // return $this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems');
+        }
+
 }
 ?>

@@ -49,7 +49,7 @@
 <input type="password" name="password" id="password" placeholder="password"><br><br>
 
 <button type="submit">Login</button> -->
-                  <form class="user" action="<?= BASE_URL();?>seller/login" method="post">
+                  <form class="user" action="<?= BASE_URL();?>seller/dashboard/login" method="post">
                     <div class="form-group">
                       <input type="text" name="username" class="form-control form-control-user" id="inlineFormInputGroupUsername" placeholder="username">
                     </div>

@@ -13,9 +13,13 @@ Class dashboard extends CI_Controller {
     }
 
     public function index(){
-        print_r($_SESSION);
+        
+        if(!isset($_SESSION['admin_username'])){
+            redirect('seller/dashboard/login');
+        }
+        $nama['admin'] = ($_SESSION['admin_nama']);
 
-        $this->load->view('seller/header');
+        $this->load->view('seller/header',$nama);
         $this->load->view('seller/dashboard');
         $this->load->view('seller/footer');
     }
@@ -42,10 +46,10 @@ Class dashboard extends CI_Controller {
                 );
 
                 $this->session->set_userdata($session);
-                redirect('seller/index');
+                redirect('seller/dashboard');
             }else{
                 $this->session->set_flashdata('message', 'username atau password salah');
-                redirect('seller/index');
+                redirect('seller/dashboard/login');
             }
         }
 
@@ -56,7 +60,7 @@ Class dashboard extends CI_Controller {
         $this->session->unset_userdata('admin_authenticated');
         $this->session->unset_userdata('admin_username');
         $this->session->unset_userdata('admin_nama');
-        redirect('seller/login');
+        redirect('seller/dashboard/login');
         }
     
     public function register(){

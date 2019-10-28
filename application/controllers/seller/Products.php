@@ -14,8 +14,13 @@ class Products extends CI_Controller{
     }
 
     public function index(){
-        print_r($_SESSION); 
-        $this->load->view('seller/header');
+        // print_r($_SESSION); 
+        if(!isset($_SESSION['admin_username'])){
+            redirect('seller/dashboard/login');
+        }
+        $nama['admin'] = ($_SESSION['admin_nama']);
+        $this->load->view('seller/header',$nama);
+        
         $username = $_SESSION['admin_username'];
         $data['barang'] = $this->model_seller->getBarangSpesific($username);
         // var_dump($data);
@@ -24,7 +29,7 @@ class Products extends CI_Controller{
     }
 
     public function tambahBarang(){
-        echo "uwu";
+        
     }
 
     public function ubahBarang(){
