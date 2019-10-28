@@ -48,6 +48,8 @@
           </form>
       <!-- end topbar search -->
 
+
+
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <!-- <li class="nav-item active">
@@ -60,10 +62,10 @@
           </li> -->
           <li class="nav-item">
             <!-- abaikan -->
-          <a class="btn btn-success btn-sm ml-3" href="<?= BASE_URL();?>homepage/cart">
-           <i class="fa fa-shopping-cart"></i> Cart
-           <span class="badge badge-light">3</span>
-          </a>
+            <a class="btn btn-success btn-sm ml-3" href="<?= BASE_URL();?>homepage/cart">
+                    <i class="fa fa-shopping-cart"></i> Cart
+                    <span class="badge badge-light">3</span>
+                </a>
 <!-- end of abaikan -->
         </li>
            <!-- Nav Item - User Information -->
@@ -97,18 +99,3 @@
       </div>
     </div>
   </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-    <div class="row">
-    <div class="col-lg-3">
-
-    <h1 class="my-4"><?=SITE_NAME?></h1>
-    <div class="list-group">
-      <a href="#" class="list-group-item">Ikan Tawar</a>
-      <a href="#" class="list-group-item">Ikan Laut</a>
-      <a href="#" class="list-group-item">dll</a>
-    </div>
-
-  </div>
-  <!-- /.col-lg-3 -->

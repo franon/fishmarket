@@ -21,6 +21,12 @@ class homepage extends CI_Controller{
         $this->load->view('footer');
     }
 
+    public function cart(){
+        $this->load->view('header-cart');
+        $this->load->view('cart');
+        $this->load->view('footer');
+    }
+
 }
 
 ?>
