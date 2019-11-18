@@ -30,7 +30,6 @@ Class dashboard extends CI_Controller {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $seller = $this->model_sellerLogin->get($username);
-        print_r($_SESSION);
         
         if(empty($seller[0])){
             $this->session->set_flashdata('message', 'Kamu belum terdaftar');
@@ -41,6 +40,7 @@ Class dashboard extends CI_Controller {
                 $session = array(
                     'admin_authenticated' => TRUE,
                     'admin_username' => $seller[0]->fishownerusername,
+                    'admin_id' => $seller[0]->idfishowner,
                     // 'admin_status' => 'admin',
                     'admin_nama' => $seller[0]->fishownerfullname
                 );

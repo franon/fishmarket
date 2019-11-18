@@ -14,13 +14,13 @@ fishnoteofproduct
 
     <form action="<?=BASE_URL();?>seller/products/tambahBarang" method="post">
         <div class="form-group">
-            <label for="idfishkios">ID Fish Kios*</label>
-            <input type="text" class="form-control" name="idfishkios" placeholder="ID KIOS">
+            <label for="idfishkios">ID KIOS</label>
+            <input type="text" class="form-control" name="idfishkios" placeholder="<?=$dataKios->idfishkios?>" disabled>
         </div>
 
         <div class="form-group">
-            <label for="fishkodeofproductsale">Kode Ikan*</label>
-            <input type="text" class="form-control" name="fishkodeofproductsale" id="fishkodeofproductsale" placeholder="Automatic">
+            <label for="fishkodeofproductsale">Kode Ikan</label>
+            <input type="text" class="form-control" name="fishkodeofproductsale" id="fishkodeofproductsale" placeholder="<?=$kodeikan?>" disabled>
         </div>
 
         <div class="form-group">

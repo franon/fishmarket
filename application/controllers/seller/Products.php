@@ -30,24 +30,32 @@ class Products extends CI_Controller{
     }
 
     public function tambahBarang(){
-        $nama['admin'] = ($_SESSION['admin_nama']);
-        $this->load->view('seller/header',$nama);
+
+        $data = array(
+            'admin'=>$_SESSION['admin_nama'],
+            'dataKios'=>$this->model_seller->getDataKios($_SESSION['admin_username'])[0],
+            'kodeikan'=>substr(($_SESSION['admin_username']),0,2).'-'.random_string('numeric',3)  
+        );
+
+        $this->load->view('seller/header',$data);
         
         if(isset($_POST["submit"])){
-        $idfishkios = $this->input->post('idfishkios');
-        $fishkodeofproductsale =$this->input->post('fishkodeofproductsale');
-        $fishgenericproductname = $this->input->post('fishgenericproductname');
-        $fishregularprice = $this->input->post('fishregularprice');
-        $fishquantity = $this->input->post('fishquantity');
-        // $fishopendateofproductPrice = $this->input->post('fishopendateofproductPrice');
-        $fishnoteofproduct = $this->input->post('fishnoteofproduct');
-        $this->model_seller->tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct);
-        }
+            $idfishkios = $data['dataKios']->idfishkios;
+            // $fishkodeofproductsale = $this->input->post('fishkodeofproductsale');
+            $fishkodeofproductsale = $data['kodeikan'];
+            $fishgenericproductname = $this->input->post('fishgenericproductname');
+            $fishregularprice = $this->input->post('fishregularprice');
+            $fishquantity = $this->input->post('fishquantity');
+            // $fishopendateofproductPrice = $this->input->post('fishopendateofproductPrice');
+            $fishnoteofproduct = $this->input->post('fishnoteofproduct');
+            $this->model_seller->tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct);
+            redirect(base_url('seller/products'),'refresh');
+        }   
         
-        $this->load->view('seller/tambahbarang');
+        $this->load->view('seller/tambahbarang',$data);
         $this->load->view('seller/footer');
     }
-
+    
     public function ubahBarang(){
         
     }
