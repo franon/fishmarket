@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class user1 extends CI_Controller {
+class login extends CI_Controller {
 
     public function __construct()
     {
@@ -11,8 +11,6 @@ class user1 extends CI_Controller {
 
 	public function index()
 	{
-        // $this->load->view('welcome_message');
-        // var_dump(BASE_URL());
         $this->load->view('user/login');        
     }
     
@@ -29,7 +27,7 @@ class user1 extends CI_Controller {
 
         if (empty($user[0])) {
             $this->session->set_flashdata('message','username tidak ditemukan');
-            redirect('user/index');
+            redirect('login');
         }
         else{
             if ($password == $user[0]->password) {
@@ -41,11 +39,11 @@ class user1 extends CI_Controller {
                 );
                 $this->session->set_userdata($session);
                 echo 'password bener';
-                redirect('user/index');
+                redirect('homepage');
             }else{
                 $this->session->set_flashdata('message','password salah');
                 echo 'password salah';
-                redirect('user/login');
+                redirect('login');
             }
         }
     }
@@ -53,6 +51,6 @@ class user1 extends CI_Controller {
 
     public function logout(){
         $this->session->sess_destroy();
-        redirect('user/login');
+        redirect('login/login');
     }
 }

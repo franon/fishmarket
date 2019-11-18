@@ -40,15 +40,6 @@
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
 
-                  <!-- <form action="<?= BASE_URL();?>seller/login" method="post">
-
-<label for="username">Username</label> <br>
-<input type="text" name="username" id="username" placeholder="username"><br><br>
-
-<label for="password">Password</label> <br>
-<input type="password" name="password" id="password" placeholder="password"><br><br>
-
-<button type="submit">Login</button> -->
                   <form class="user" action="<?= BASE_URL();?>seller/dashboard/login" method="post">
                     <div class="form-group">
                       <input type="text" name="username" class="form-control form-control-user" id="inlineFormInputGroupUsername" placeholder="username">
@@ -76,7 +67,7 @@
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
+                    <a class="small" href="<?=BASE_URL();?>seller/dashboard/register">Create an Account!</a>
                   </div>
                 </div>
               </div>

@@ -24,19 +24,21 @@ class model_seller extends CI_Model {
             return $this->sellerdb->delete('tfishpriceofproductitems',array('fishkodeofproductsale'=>$fishkodeofproductsale));
         }
 
-    public function tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishopendateofproductPrice,$fishnoteofproduct){
+    public function tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct){
+
             $data = array(
-                'fishkodeofproductsale'=>$idfishkios,
+                'idfishkios'=>$idfishkios,
                 'fishkodeofproductsale'=>$fishkodeofproductsale,
                 'fishgenericproductname'=>$fishgenericproductname,
                 'fishregularprice'=>$fishregularprice,
-                'fishopendateofproductPrice'=>$fishopendateofproductPrice,
+                'fishquantity'=>$fishquantity,
+                'fishopendateofproductPrice'=>date('Y-m-d'),
                 'fishflagofproduct'=>'0',
                 'fishnoteofproduct'=>$fishnoteofproduct
             );
-            var_dump($this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems'));
-            // return $this->sellerdb->insert('tfishpriceofproductitems');
-            // return $this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems');
+            // var_dump($this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems'));
+            return $this->sellerdb->insert('tfishpriceofproductitems',$data);
+            // var_dump( $this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems'));
         }
 
 }

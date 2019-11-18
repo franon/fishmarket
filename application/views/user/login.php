@@ -21,7 +21,7 @@ if($this->session->flashdata('message')){
     
 } ?>
 
-<form action="<?= BASE_URL();?>user/login" method="post">
+<form action="<?= BASE_URL();?>login/login" method="post">
 
 <label for="username">Username</label> <br>
 <input type="text" name="username" id="username" placeholder="username"><br><br>

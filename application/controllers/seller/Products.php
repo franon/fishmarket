@@ -19,6 +19,7 @@ class Products extends CI_Controller{
             redirect('seller/dashboard/login');
         }
         $nama['admin'] = ($_SESSION['admin_nama']);
+
         $this->load->view('seller/header',$nama);
         
         $username = $_SESSION['admin_username'];
@@ -29,7 +30,22 @@ class Products extends CI_Controller{
     }
 
     public function tambahBarang(){
+        $nama['admin'] = ($_SESSION['admin_nama']);
+        $this->load->view('seller/header',$nama);
         
+        if(isset($_POST["submit"])){
+        $idfishkios = $this->input->post('idfishkios');
+        $fishkodeofproductsale =$this->input->post('fishkodeofproductsale');
+        $fishgenericproductname = $this->input->post('fishgenericproductname');
+        $fishregularprice = $this->input->post('fishregularprice');
+        $fishquantity = $this->input->post('fishquantity');
+        // $fishopendateofproductPrice = $this->input->post('fishopendateofproductPrice');
+        $fishnoteofproduct = $this->input->post('fishnoteofproduct');
+        $this->model_seller->tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct);
+        }
+        
+        $this->load->view('seller/tambahbarang');
+        $this->load->view('seller/footer');
     }
 
     public function ubahBarang(){

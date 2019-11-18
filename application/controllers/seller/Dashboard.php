@@ -81,19 +81,11 @@ Class dashboard extends CI_Controller {
             $password = md5($this->input->post('fishownerpassword'));
             $this->model_sellerLogin->register($email,$fullname,$username,$password);
             // $this->session->set_flashdata('message', 'Kamu belum terdaftar');
-            // redirect('seller/login');
+            redirect('seller/dashboard');
         }    
-            // redirect('seller/index');
+            // redirect('seller/dashboard/');
         
     }
-    
-    // public function dataBarang(){
-    //     $this->load->view('seller/header');
-    //     // $data['barang'] = $this->model_seller->getBarang();
-    //     // var_dump($_SESSION['admin_username']);
-    //     $this->load->view('seller/Data_barang');
-    //     $this->load->view('seller/footer');
-    // }
 
     public function dataBarangSeller(){
         $this->load->view('seller/header');
@@ -103,20 +95,6 @@ Class dashboard extends CI_Controller {
         $this->load->view('seller/Data_barang',$data);
         $this->load->view('seller/footer');
     }
-
-    public function tambahBarang(){
-        
-    }
-
-    public function hapusBarang(){
-        // $this->model_seller->
-    }
-    
-    public function ubahBarang(){
-
-    }
-
-
 }
 
 ?>
