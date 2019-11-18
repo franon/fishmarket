@@ -4,8 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Products extends CI_Controller{
 
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         $this->load->database('seller',TRUE);
         $this->load->model('model_sellerLogin');
@@ -56,7 +55,18 @@ class Products extends CI_Controller{
         $this->load->view('seller/footer');
     }
     
-    public function ubahBarang(){
+    public function ubahBarang($id){
+        
+        $data = array(
+        'admin'=>$_SESSION['admin_nama'],
+        'dataIkan' => $this->model_seller->getDataIkan($id)[0]
+        );
+
+        $this->load->view('seller/header',$data);
+        $this->load->view('seller/ubahBarang',$data);
+        var_dump($data['dataIkan']);
+        $this->load->view('seller/footer');
+        
         
     }
     

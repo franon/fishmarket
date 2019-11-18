@@ -34,6 +34,10 @@ class model_seller extends CI_Model {
         return $query->result();
     }
 
+    public function getDataIkan($id){
+        $query = $this->sellerdb->query("SELECT * FROM tfishpriceofproductitems WHERE tfishpriceofproductitems.fishkodeofproductsale='$id'");
+        return $query->result();
+    }
 
 
 }

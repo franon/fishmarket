@@ -53,7 +53,7 @@
             <td><?= $brg->fishopendateofproductPrice ?></td>
             <td><?= $brg->fishnoteofproduct ?></td>
             <td width="250">
-            <a href="<?= base_url('seller/products/#'); ?>" class="btn btn-small text-warning">
+            <a href="<?= base_url('seller/products/ubahbarang/'.$brg->fishkodeofproductsale); ?>" class="btn btn-small text-warning">
             <i class="fas fa-pencil-alt">Ubah</i></a>
             <a href="<?= base_url('seller/products/delete/'.$brg->fishkodeofproductsale); ?>" class="btn btn-small text-danger">
             <i class="fas fa-trash">Hapus</i></a>
