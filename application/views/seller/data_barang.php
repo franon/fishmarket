@@ -53,9 +53,8 @@
             <td><?= $brg->fishopendateofproductPrice ?></td>
             <td><?= $brg->fishnoteofproduct ?></td>
             <td width="250">
-            <!-- <a href="" class="btn btn-small"><i class="fas fa-edit"></i> Edit</a> -->
-            <!-- <a onclick="deleteConfirm('<?= base_url('seller/products/delete/'.$brg->fishkodeofproductsale); ?>')" 
-            href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a> -->
+            <a href="<?= base_url('seller/products/#'); ?>" class="btn btn-small text-warning">
+            <i class="fas fa-pencil-alt">Ubah</i></a>
             <a href="<?= base_url('seller/products/delete/'.$brg->fishkodeofproductsale); ?>" class="btn btn-small text-danger">
             <i class="fas fa-trash">Hapus</i></a>
             </td>
