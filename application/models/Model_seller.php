@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+`<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class model_seller extends CI_Model {
 
@@ -33,14 +33,23 @@ class model_seller extends CI_Model {
         $query = $this->sellerdb->query("SELECT idfishkios,kiosname from  tfishkiosproductidentity, tfishselerregister WHERE tfishkiosproductidentity.idfishowner=tfishselerregister.idfishowner AND tfishselerregister.fishownerusername='$username'");
         return $query->result();
     }
-
     public function getDataIkan($id){
         $query = $this->sellerdb->query("SELECT * FROM tfishpriceofproductitems WHERE tfishpriceofproductitems.fishkodeofproductsale='$id'");
         return $query->result();
     }
+    public function ubahBarang($kodeIkan,$namaIkan,$hargaIkan,$qtyIkan,$tglIkan,$catatanIkan){
+        $this->sellerdb->set('fishgenericproductname',$namaIkan);
+        $this->sellerdb->set('fishregularprice',$hargaIkan);
+        $this->sellerdb->set('fishquantity',$qtyIkan);
+        $this->sellerdb->set('fishopendateofproductPrice',$tglIkan);
+        $this->sellerdb->set('fishnoteofproduct',$catatanIkan);
+        $this->sellerdb->where('fishkodeofproductsale',$kodeIkan);
+        $query = $this->sellerdb->update('tfishpriceofproductitems');
+        return $query;
 
+    }
 
 }
 
     
-?>
+?>`

@@ -12,7 +12,7 @@ fishnoteofproduct
 */=======Close-Rute=============/*
 -->
 
-    <form action="<?=BASE_URL();?>seller/products/tambahBarang" method="post">
+    <form action="<?=BASE_URL();?>seller/products/ubahBarang/<?=$dataIkan->fishkodeofproductsale?>" method="post">
         <div class="form-group">
             <label for="idfishkios">ID KIOS</label>
             <input type="hidden" class="form-control" name="idfishkios" placeholder="<?=$dataIkan->idfishkios?>">

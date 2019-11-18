@@ -36,7 +36,6 @@ class Products extends CI_Controller{
             'kodeikan'=>substr(($_SESSION['admin_username']),0,2).'-'.random_string('numeric',3)  
         );
 
-        $this->load->view('seller/header',$data);
         
         if(isset($_POST["submit"])){
             $idfishkios = $data['dataKios']->idfishkios;
@@ -51,6 +50,7 @@ class Products extends CI_Controller{
             redirect(base_url('seller/products'),'refresh');
         }   
         
+        $this->load->view('seller/header',$data);
         $this->load->view('seller/tambahbarang',$data);
         $this->load->view('seller/footer');
     }
@@ -62,9 +62,21 @@ class Products extends CI_Controller{
         'dataIkan' => $this->model_seller->getDataIkan($id)[0]
         );
 
+        var_dump($data['dataIkan']);
+
+        if(isset($_POST["submit"])){
+            $kodeIkan = $data['dataIkan']->fishkodeofproductsale;
+            $namaIkan = $this->input->post('fishgenericproductname');
+            $hargaIkan = $this->input->post('fishregularprice');
+            $qtyIkan = $this->input->post('fishquantity');
+            $tglIkan = date('Y-m-d');
+            $catatanIkan = $this->input->post('fishnoteofproduct');
+            $this->model_seller->ubahBarang($kodeIkan,$namaIkan,$hargaIkan,$qtyIkan,$tglIkan,$catatanIkan);
+            redirect(base_url('seller/products'),'refresh');
+        }
+
         $this->load->view('seller/header',$data);
         $this->load->view('seller/ubahBarang',$data);
-        var_dump($data['dataIkan']);
         $this->load->view('seller/footer');
         
         
