@@ -126,7 +126,24 @@
               </div>
             </div>
           </div>
-
+          <?=print_r($item);?>
+          <?php foreach ($item as $nmrIkan => $ikan):?>
+            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="<?=BASE_URL();?>detail/item/<?=$ikan->fishkodeofproductsale?>"><img class="card-img-top" src="<?= BASE_URL();?>assets/img/crab.jpg" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="<?=BASE_URL();?>detail/item/<?=$ikan->fishkodeofproductsale?>"><?=$ikan->fishgenericproductname?></a>
+                </h4>
+                <h5><?=$ikan->fishregularprice?></h5>
+                <p class="card-text"><?=$ikan->fishnoteofproduct?>. <small>bikini bottom</small> </p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+          <?php endforeach;?>
         </div>
         <!-- /.row -->
 

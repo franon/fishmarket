@@ -1,22 +1,16 @@
 <!-- Page Content -->
-  <div class="col-lg-9">
+  <div class="col-lg-9  ">
 
     <div class="card mt-4">
       <img class="card-img-top img-fluid" src="<?= BASE_URL();?>assets/img/detail/salmon.jpg" alt="">
       <div class="card-body">
-        <h3 class="card-title">Ikan Salmon</h3>
-        <h4>Rp. 477.000</h4>
-        <p class="card-text">Salmon Coho liar juga dikenal sebagai Salmon Perak. 
-            Ini adalah binatang buas yang luar biasa! Ikan ini lebih ramping dari King Salmon 
-            dan rasanya sangat ringan. Meskipun lebih ramping dari Salmon Raja, 
-            ia masih merupakan ikan yang sangat berlemak. 
-            Coho adalah salmon yang sangat serbaguna yang dapat dimasak dengan berbagai cara. 
-            Kuantitas yang Anda pilih adalah berat yang Anda inginkan.
-             Ukuran sajian 'rata-rata' adalah sekitar 0.5kg ... 
-             jadi 1.3kg harus memberi makan sekitar 6 orang dewasa.</p>
+        <h3 class="card-title"><?=$ikan->fishgenericproductname?></h3>
+        <h4>Rp. <?=$ikan->fishregularprice?></h4>
+        <p class="card-text"><?=$ikan->fishnoteofproduct?>.</p>
         <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
         4.0 stars
       </div>
+      <a href="#"><i class="fas fa-cart-plus"></i>add to cart</a>
     </div>
     <!-- /.card -->
 
