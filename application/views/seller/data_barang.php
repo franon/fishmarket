@@ -72,3 +72,13 @@
 
 </div>
 <!-- End of Main Content -->
+<script>
+  let URL = 'http://localhost/fishmarket/seller/api/barang';
+  $.get(URL,{
+    "id" : "<?=$_SESSION['admin_username']?>",
+    "key-auth": "fm-5"
+    },function(data){
+    console.log(data);
+  });
+
+</script>

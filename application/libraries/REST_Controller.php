@@ -3,6 +3,7 @@ namespace Restserver\Libraries;
 
 use Exception;
 use stdClass;
+use CI_Controller;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 

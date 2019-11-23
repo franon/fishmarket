@@ -15,7 +15,7 @@ fishnoteofproduct
     <form action="<?=BASE_URL();?>seller/products/ubahBarang/<?=$dataIkan->fishkodeofproductsale?>" method="post">
         <div class="form-group">
             <label for="idfishkios">ID KIOS</label>
-            <input type="hidden" class="form-control" name="idfishkios" placeholder="<?=$dataIkan->idfishkios?>">
+            <input type="hidden" class="form-control" name="idfishkios" value="<?=$dataIkan->idfishkios?>">
             <input type="text" class="form-control" name="idfishkios" placeholder="<?=$dataIkan->idfishkios?>"disabled>
         </div>
 

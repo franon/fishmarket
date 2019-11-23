@@ -18,6 +18,8 @@
   <!-- Custom styles for this template-->
   <link href=<?= BASE_URL();?>assets/vendor/sb-admin/css/sb-admin-2.min.css rel="stylesheet">
 
+  <script src=<?= BASE_URL(); ?>assets/vendor/jquery/jquery.min.js> </script>
+
 </head>
 
 <body id="page-top">

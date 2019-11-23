@@ -9,9 +9,15 @@ class model_userLogin extends CI_Model {
 
     public function get($username){
         $this->db->where('username',$username);
-        $query = $this->db->get('tcustomer')->result();
-        return $query;
+        return $this->db->get('tcustomer')->result()[0];
+    }
 
+    public function history($data){
+        return $this->db->insert('thistory',$data);
+    }
+
+    public function register($data){
+        return $this->db->insert('tcustomer',$data);
     }
 
     }
