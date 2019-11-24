@@ -21,37 +21,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Ikan Salmon</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">Rp. 477.000</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Ikan lele</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">Rp. 23.000</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>crab</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">Rp. 125.000</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
+                        <form action="<?= BASE_URL();?>checkout" method="post">
+                        <?php var_dump($dataCart[0]);?>
+                        <?php foreach ($dataCart as $cart => $item):?>
+                            <tr>
+                                <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                                <td><?=$item->namaproduct?></td>
+                                <td>In stock</td>
+                                <td><input class="form-control" type="text" value="<?=$item->quantity?>" /></td>
+                                <td class="text-right">Rp. <?=$item->harga?></td>
+                                <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                            </tr>    
+                        <?php endforeach; ?>
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>Sub-Total</td>
-                            <td class="text-right">Rp. 625.000</td>
+                            <td class="text-right">Rp. 
+                            <?php 
+                            $harga = 0;
+                            foreach ($dataCart as $cart){
+                                $harga = $harga + (int)$cart->harga;
+                            }
+                            // var_dump($harga);
+                            echo $harga;
+                            ?></td>
+                             
                         </tr>
                         <tr>
                             <td></td>
@@ -59,15 +56,15 @@
                             <td></td>
                             <td></td>
                             <td>Shipping</td>
-                            <td class="text-right">Rp. 15.000</td>
+                            <td class="text-right"><?php $shipping = 15000;?>Rp. 15000</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>Rp. 640.000</strong></td>
+                            <td><strong>Total </strong></td>
+                            <td class="text-right"><strong>Rp.<?= $total = $harga + $shipping ?></strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,6 +79,7 @@
                     <button class="btn btn-lg btn-block btn-success text-uppercase"> <a href="#"></a> Checkout </button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>

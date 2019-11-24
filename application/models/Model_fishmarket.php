@@ -15,4 +15,16 @@ class Model_fishmarket extends CI_Model {
         }
 
     }
+
+    public function getDataCart($idcustomer=null){
+        if ($idcustomer == null) {
+            return $this->db->get('cart')->result();
+        }else{
+            return $this->db->get_where('cart',['idcustomer' => $idcustomer])->result();
+        }
+    }
+
+    public function insertCart($data){
+        return $this->db->insert('cart',$data);
+    }
 }
