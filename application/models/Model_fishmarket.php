@@ -27,4 +27,13 @@ class Model_fishmarket extends CI_Model {
     public function insertCart($data){
         return $this->db->insert('cart',$data);
     }
+
+    public function getCart($idcart){
+        return $this->db->get_where('cart', ['idcart' => $idcart])->result();
+    }
+
+    public function checkout($data){
+        $this->db->insert('ttransaksi',$data);
+        return TRUE;
+    }
 }

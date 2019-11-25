@@ -21,18 +21,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <form action="<?= BASE_URL();?>checkout" method="post">
-                        <?php var_dump($dataCart[0]);?>
+
+                        <!-- ====================AWAL FORM============================ -->
+                        <form action="<?= BASE_URL();?>checkout/item" method="post">
+
+                        <!-- ID product -->
+                        <input type="hidden" name="idCart" value="<?=$dataCart[0]->idcart?>">
                         <?php foreach ($dataCart as $cart => $item):?>
                             <tr>
-                                <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                                <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
+                                <!-- nama product -->
                                 <td><?=$item->namaproduct?></td>
+                                <input type="hidden" name="namaProduct[]" value="<?=$item->namaproduct?>">
+                                <!-- kwantitas product -->
                                 <td>In stock</td>
-                                <td><input class="form-control" type="text" value="<?=$item->quantity?>" /></td>
+                                <td><input class="form-control" type="text" name="quantity[]" value="<?=$item->quantity?>" /></td>
+                                <!-- harga product -->
                                 <td class="text-right">Rp. <?=$item->harga?></td>
+                                <input type="hidden" name="harga[]" value="<?=$item->harga?>">
+
                                 <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
                             </tr>    
                         <?php endforeach; ?>
+
+                        <!-- Sub Totalnya dari Calculate semua barang di Cart-->
                         <tr>
                             <td></td>
                             <td></td>
@@ -41,30 +53,36 @@
                             <td>Sub-Total</td>
                             <td class="text-right">Rp. 
                             <?php 
-                            $harga = 0;
+                            $subTotal = 0;
                             foreach ($dataCart as $cart){
-                                $harga = $harga + (int)$cart->harga;
+                                $subTotal = $subTotal + (int)$cart->harga;
                             }
-                            // var_dump($harga);
-                            echo $harga;
+                            echo $subTotal;
                             ?></td>
+                            <input type="hidden" name="subTotal" value="<?=$subTotal?>">
                              
                         </tr>
+
+                        <!-- Shipping -->
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>Shipping</td>
-                            <td class="text-right"><?php $shipping = 15000;?>Rp. 15000</td>
+                            <td class="text-right">Rp. <?php $shipping = 15000; echo $shipping;?></td>
+                            <input type="hidden" name="shipping" value="<?= $shipping?>">
                         </tr>
+
+                        <!-- Total harga sudah sama shipping -->
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td><strong>Total </strong></td>
-                            <td class="text-right"><strong>Rp.<?= $total = $harga + $shipping ?></strong></td>
+                            <td class="text-right"><strong>Rp.<?php $totalHarga = $subTotal + $shipping; echo $totalHarga; ?></strong></td>
+                            <input type="hidden" name="totalHarga" value="<?=$totalHarga?>">
                         </tr>
                     </tbody>
                 </table>
@@ -72,14 +90,17 @@
         </div>
         <div class="col mb-2">
             <div class="row">
+                <!-- Lanjut Shopping -->
                 <div class="col-sm-12  col-md-6">
                     <button class="btn btn-block btn-light" ><a href="<?= BASE_URL();?>">Continue Shopping</a> </button>
                 </div>
+                <!-- Checkout Barang -->
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase"> <a href="#"></a> Checkout </button>
+                    <button type="submit" name="checkout" class="btn btn-lg btn-block btn-success text-uppercase">Checkout </button>
                 </div>
             </div>
             </form>
+            <!-- ====================AKHIR FORM============================ -->
         </div>
     </div>
 </div>

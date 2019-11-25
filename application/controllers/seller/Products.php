@@ -18,7 +18,6 @@ class Products extends CI_Controller{
             redirect('seller/dashboard/login');
         }
         $nama['admin'] = ($_SESSION['admin_nama']);
-
         $this->load->view('seller/header',$nama);
         
         $username = $_SESSION['admin_username'];
@@ -39,15 +38,19 @@ class Products extends CI_Controller{
         
         if(isset($_POST["submit"])){
             $idfishkios = $data['dataKios']->idfishkios;
-            // $fishkodeofproductsale = $this->input->post('fishkodeofproductsale');
             $fishkodeofproductsale = $data['kodeikan'];
             $fishgenericproductname = $this->input->post('fishgenericproductname');
             $fishregularprice = $this->input->post('fishregularprice');
             $fishquantity = $this->input->post('fishquantity');
-            // $fishopendateofproductPrice = $this->input->post('fishopendateofproductPrice');
             $fishnoteofproduct = $this->input->post('fishnoteofproduct');
-            $this->model_seller->tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct);
-            redirect(base_url('seller/products'),'refresh');
+            if($this->model_seller->tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct) >0){
+                // return redirect(base_url('seller/products'),'refresh');
+                return "awa";
+            }else{
+                // return redirect(base_url('seller/products/tambahBarang'),'refresh');
+                return "uwu";
+            }
+
         }   
         
         $this->load->view('seller/header',$data);
@@ -92,6 +95,15 @@ class Products extends CI_Controller{
         }
         
         $this->load->view('seller/footer');
+    }
+
+    public function testing(){
+        echo "Using unit testing library <br>";
+        $test = $this->tambahBarang();
+        var_dump($test);
+        die;
+
+
     }
     
 }

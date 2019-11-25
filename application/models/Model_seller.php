@@ -6,13 +6,16 @@ class model_seller extends CI_Model {
         parent::__construct();
         $this->sellerdb = $this->load->database('seller',TRUE);
     }
+
     public function getBarangSpesific($username){
         $query = $this->sellerdb->query("SELECT tfishpriceofproductitems.idfishkios,tfishselerregister.fishownerusername,fishkodeofproductsale,fishgenericproductname,fishregularprice,fishquantity,fishopendateofproductPrice, fishnoteofproduct FROM tfishpriceofproductitems,tfishselerregister,tfishkiosproductidentity WHERE tfishselerregister.fishownerusername = '$username' AND tfishpriceofproductitems.idfishkios=tfishkiosproductidentity.idfishkios AND tfishselerregister.idfishowner=tfishkiosproductidentity.idfishowner");
         return $query->result();
     }
+
     public function hapusBarang($fishkodeofproductsale){
             return $this->sellerdb->delete('tfishpriceofproductitems',array('fishkodeofproductsale'=>$fishkodeofproductsale));
     }
+
     public function tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct){
 
             $data = array(
@@ -25,19 +28,20 @@ class model_seller extends CI_Model {
                 'fishflagofproduct'=>'0',
                 'fishnoteofproduct'=>$fishnoteofproduct
             );
-            // var_dump($this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems'));
-            return $this->sellerdb->insert('tfishpriceofproductitems',$data);
-            // var_dump( $this->sellerdb->set($data)->get_compiled_insert('tfishpriceofproductitems'));
+            $this->sellerdb->insert('tfishpriceofproductitems',$data);
+            return $this->sellerdb->affected_rows();
     }
 
     public function getDataKios($username){
         $query = $this->sellerdb->query("SELECT idfishkios,kiosname from  tfishkiosproductidentity, tfishselerregister WHERE tfishkiosproductidentity.idfishowner=tfishselerregister.idfishowner AND tfishselerregister.fishownerusername='$username'");
         return $query->result();
     }
+
     public function getDataIkan($id){
         $query = $this->sellerdb->query("SELECT * FROM tfishpriceofproductitems WHERE tfishpriceofproductitems.fishkodeofproductsale='$id'");
         return $query->result();
     }
+
     public function ubahBarang($kodeIkan,$namaIkan,$hargaIkan,$qtyIkan,$tglIkan,$catatanIkan){
         $this->sellerdb->set('fishgenericproductname',$namaIkan);
         $this->sellerdb->set('fishregularprice',$hargaIkan);
@@ -64,9 +68,6 @@ class model_seller extends CI_Model {
         $this->sellerdb->update('tfishpriceofproductitems',$data,['fishkodeofproductsale' => $kodeIkan]);
         return $this->sellerdb->affected_rows();
     }
-   
     
 }
-
-    
 ?>
