@@ -21,9 +21,7 @@ Class dashboard extends CI_Controller {
 
         $this->load->view('seller/header',$nama);
         $this->load->view('seller/dashboard');
-        // $this->load->view('seller/footer');
-        // var_dump($_SESSION['statusLogin']);
-        // var_dump($this->test_Login());
+        $this->load->view('seller/footer');
     }
     
     public function login(){
@@ -48,13 +46,10 @@ Class dashboard extends CI_Controller {
                 );
 
                 $this->session->set_userdata($session);
-                $_SESSION['statusLogin'] = 'Logged in!';
-                $this->session->mark_as_temp('statusLogin', 3);
                 redirect('seller/dashboard');
             }else{
                 $this->session->set_flashdata('message', 'username atau password salah');
                 redirect('seller/dashboard/login');
-                return FALSE;
             }
         }
 
@@ -100,15 +95,6 @@ Class dashboard extends CI_Controller {
         $this->load->view('seller/Data_barang',$data);
         $this->load->view('seller/footer');
     }
-
-    // public function test_Login(){
-    //     $test = $_SESSION['statusLogin'];
-    //     $expected_result = 'Logged in!';
-    //     $test_name = 'Seller Berhasil Login';
-    //     return $this->unit->run($test,$expected_result,$test_name);
-    //     // full report
-    //     // echo $this->unit->report($test,$expected_result,$test_name);
-    // }
 }
 
 ?>

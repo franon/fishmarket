@@ -36,7 +36,7 @@ class model_seller extends CI_Model {
         $query = $this->sellerdb->query("SELECT idfishkios,kiosname from  tfishkiosproductidentity, tfishselerregister WHERE tfishkiosproductidentity.idfishowner=tfishselerregister.idfishowner AND tfishselerregister.fishownerusername='$username'");
         return $query->result();
     }
-
+    
     public function getDataIkan($id){
         $query = $this->sellerdb->query("SELECT * FROM tfishpriceofproductitems WHERE tfishpriceofproductitems.fishkodeofproductsale='$id'");
         return $query->result();
@@ -67,7 +67,6 @@ class model_seller extends CI_Model {
     public function updateItem($data,$kodeIkan){
         $this->sellerdb->update('tfishpriceofproductitems',$data,['fishkodeofproductsale' => $kodeIkan]);
         return $this->sellerdb->affected_rows();
-    }
-    
+    }    
 }
 ?>

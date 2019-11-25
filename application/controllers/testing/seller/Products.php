@@ -1,5 +1,4 @@
 <?php 
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Products extends CI_Controller{
@@ -24,11 +23,6 @@ class Products extends CI_Controller{
         $this->load->view('seller/header',$data);
         $this->load->view('seller/data_barang',$data);
         $this->load->view('seller/footer');
-        // if (isset($_SESSION['statusTambahBarang'])) {
-        //     print_r($this->test_tambahBarang());
-        // }
-        // var_dump($_SESSION);
-        return $data['barang'];
     }
 
     public function tambahBarang(){
@@ -47,14 +41,12 @@ class Products extends CI_Controller{
             $fishregularprice = $this->input->post('fishregularprice');
             $fishquantity = $this->input->post('fishquantity');
             $fishnoteofproduct = $this->input->post('fishnoteofproduct');
-            $status = '';
             if($this->model_seller->tambahBarang($idfishkios,$fishkodeofproductsale,$fishgenericproductname,$fishregularprice,$fishquantity,$fishnoteofproduct) >0){
-                $_SESSION['statusTambahBarang'] = 'OK';
-                $this->session->mark_as_temp('statusTambahBarang', 3);
-                return redirect(base_url('seller/products'),'refresh');
+                // return redirect(base_url('seller/products'),'refresh');
+                return "awa";
             }else{
-                redirect(base_url('seller/products/tambahBarang'),'refresh');
-                return site_url('seller/products/tambahBarang');
+                // return redirect(base_url('seller/products/tambahBarang'),'refresh');
+                return "uwu";
             }
 
         }   
@@ -102,21 +94,4 @@ class Products extends CI_Controller{
         
         $this->load->view('seller/footer');
     }
-
-    // public function test_index(){
-    //     $test = $this->index();
-    //     $expected_result = 'is_array';
-    //     $test_name = 'Menampilkan Data Product yang dijual Seller';
-    //     echo $this->unit->run($test,$expected_result,$test_name);
-    //     // full report
-    //     // echo $this->unit->report($test,$expected_result,$test_name);
-    // }
-
-    // public function test_tambahBarang(){
-    //     $test = $_SESSION['statusTambahBarang'];
-    //     // $expected_result = 'http://[::1]/fishmarket/seller/products';
-    //     $expected_result = 'OK';
-    //     $test_name = "Seller Menjual barang";
-    //     return $this->unit->run($test,$expected_result,$test_name);
-    // }
 }
