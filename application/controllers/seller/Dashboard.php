@@ -86,7 +86,7 @@ Class dashboard extends CI_Controller {
             $password = md5($this->input->post('fishownerpassword'));
             $this->model_sellerLogin->register($email,$fullname,$username,$password);
             // $this->session->set_flashdata('message', 'Kamu belum terdaftar');
-            redirect('seller/dashboard');
+            redirect('seller/dashboard/login');
         }    
             // redirect('seller/dashboard/');
         

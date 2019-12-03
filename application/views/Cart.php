@@ -26,8 +26,9 @@
                         <form action="<?= BASE_URL();?>checkout/item" method="post">
 
                         <!-- ID product -->
+                        <?php if (isset($dataCart[0])) {?>
                         <input type="hidden" name="idCart" value="<?=$dataCart[0]->idcart?>">
-                        <?php foreach ($dataCart as $cart => $item):?>
+                            <?php foreach ($dataCart as $cart => $item):?>
                             <tr>
                                 <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
                                 <!-- nama product -->
@@ -99,6 +100,9 @@
                     <button type="submit" name="checkout" class="btn btn-lg btn-block btn-success text-uppercase">Checkout </button>
                 </div>
             </div>
+            <?php }else{ ?>
+                <?php echo "NULL";?>
+            <?php } ?>
             </form>
             <!-- ====================AKHIR FORM============================ -->
         </div>

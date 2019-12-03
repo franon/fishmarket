@@ -10,7 +10,7 @@
         <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
         4.0 stars
       </div>
-      <a href="#"><i class="fas fa-cart-plus"></i>add to cart</a>
+      <a href=" <?= BASE_URL();?>cart/addToCart/<?=$ikan->fishkodeofproductsale?>"><i class="fas fa-cart-plus"></i>add to cart</a>
     </div>
     <!-- /.card -->
 

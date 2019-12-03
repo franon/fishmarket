@@ -14,18 +14,21 @@ class Login extends CI_Controller{
     }
 
     function index(){
-        die;
-        // $this->load->view('user/login');
+        // die;
+        $this->load->view('user/login');
     }
 
     function login(){
-    
     $username = $this->input->post('username');
     $password = $this->input->post('password');
-    $user = $this->Model_userLogin->get($username);
+    if (isset($username)) {
+        $user = $this->Model_userLogin->get($username);
+    }else{
+        echo "uwu";
+    }
         if(empty($user)){
             $this->session->set_flashdata('message','username tidak ada');
-            redirect('homepage','refresh');
+            // redirect('homepage','refresh');
             
         }else{
             if (md5($password) == $user->password) {
@@ -41,6 +44,9 @@ class Login extends CI_Controller{
                 redirect('homepage','refresh');
             }else{
                 $this->session->set_flashdata('message','password salah');
+                
+                redirect('users/login/login','refresh');
+                
                 echo "salah pass";
             }
     

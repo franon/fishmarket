@@ -17,14 +17,15 @@ class Cart extends CI_Controller{
             'nama' => null,
             'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer'])
         ];
+        // var_dump($data['dataCart']);
         if (isset($_SESSION['cust_username'])) {
             $data['username'] = $_SESSION['cust_username'];
-            $data['nama'] = $_SESSION['cust_nama'];
-        }else{
+            $data['nama'] = $_SESSION['cust_nama'];}
+            else{
             $data['username'] = 'Masuk';
             $data['nama'] = 'Masuk';
         }
-
+        
 
         
         $this->load->view('header-cart',$data);
@@ -36,12 +37,16 @@ class Cart extends CI_Controller{
         $dataUmum = [
             'dataIkan' => $this->Model_fishmarket->getDataIkan($kode)[0],
             'idCustomer' => $_SESSION['idcustomer'],
-            'dataCart' => $this->Model_fishmarket->getDataCart()[0]
-
+            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer'])[0]
         ];
-
-        if ($dataUmum['idCustomer'] == $dataUmum['dataCart']->idcustomer) {
-         $query = $this->Model_fishmarket->getDataCart($dataUmum['idCustomer'])[0];
+        // var_dump($dataUmum['dataCart']);die;
+        // var_dump($dataUmum['dataCart']);die;
+        // var_dump($this->Model_fishmarket->getDataCart($dataUmum['idCustomer'])[0]->idcustomer);die;
+        // var_dump($dataUmum['idCustomer'] == $dataUmum['dataCart'][0]->idcustomer);die;
+        // if ($dataUmum['idCustomer'] == $dataUmum['dataCart']->idcustomer) {
+            // var_dump(($dataUmum['idCustomer'] == $this->Model_fishmarket->getDataCart($dataUmum['idCustomer'])));die;
+        if(($dataUmum['idCustomer'] == $dataUmum['dataCart']->idcustomer)){
+         $query = $dataUmum['dataCart'];
          $idCart = $query->idcart;
         }else{
             $idCart = 'crt'.'-'.random_string('numeric',3);
@@ -56,5 +61,8 @@ class Cart extends CI_Controller{
         ];
 
         $this->Model_fishmarket->insertCart($data);
+        
+        redirect('','refresh');
+        
     }
 }

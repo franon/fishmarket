@@ -33,39 +33,6 @@ class homepage extends CI_Controller{
         $this->load->view('footer');
     }
 
-    public function detail(){
-        if (isset($_SESSION['cust_username'])) {
-            $data = [
-                'username' => $_SESSION['cust_username'],
-                'nama' => $_SESSION['cust_nama']
-            ];
-        }else{
-            $data = [
-                'username' => 'Masuk',
-                'nama' => 'Masuk'
-            ];
-        }
-        $this->load->view('header',$data);
-        $this->load->view('detail');
-        $this->load->view('footer');
-    }
-
-    public function cart(){
-        if (isset($_SESSION['cust_username'])) {
-            $data = [
-                'username' => $_SESSION['cust_username'],
-                'nama' => $_SESSION['cust_nama']
-            ];
-        }else{
-            $data = [
-                'username' => 'Masuk',
-                'nama' => 'Masuk'
-            ];
-        }
-        $this->load->view('header-cart',$data);
-        $this->load->view('cart');
-        $this->load->view('footer');
-    }
 
 }
 

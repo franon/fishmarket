@@ -17,6 +17,7 @@ class Products extends CI_Controller{
         if(!isset($username)){
             redirect('seller/dashboard/login');
         }
+        var_dump($username);
         $data = [
             'admin' => $_SESSION['admin_nama'],
             'barang' => $this->model_seller->getBarangSpesific($username)
