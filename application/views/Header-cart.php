@@ -52,21 +52,13 @@
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>  -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li> -->
           <li class="nav-item">
             <!-- abaikan -->
             <a class="btn btn-success btn-sm ml-3" href="<?= BASE_URL();?>cart">
                     <i class="fa fa-shopping-cart"></i> Cart
                     <span class="badge badge-light">3</span>
                 </a>
-<!-- end of abaikan -->
+            <!-- end of abaikan -->
         </li>
            <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">

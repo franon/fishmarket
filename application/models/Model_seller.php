@@ -33,7 +33,7 @@ class model_seller extends CI_Model {
     }
 
     public function getDataKios($username){
-        $query = $this->sellerdb->query("SELECT idfishkios,kiosname from  tfishkiosproductidentity, tfishselerregister WHERE tfishkiosproductidentity.idfishowner=tfishselerregister.idfishowner AND tfishselerregister.fishownerusername='$username'");
+        $query = $this->sellerdb->query("SELECT idfishkios,kiosname,tfishselerregister.idfishowner from  tfishkiosproductidentity, tfishselerregister WHERE tfishkiosproductidentity.idfishowner=tfishselerregister.idfishowner AND tfishselerregister.fishownerusername='$username'");
         return $query->result();
     }
     
@@ -68,5 +68,14 @@ class model_seller extends CI_Model {
         $this->sellerdb->update('tfishpriceofproductitems',$data,['fishkodeofproductsale' => $kodeIkan]);
         return $this->sellerdb->affected_rows();
     }    
+
+    public function getInvoices($idfishowner){
+        return $this->sellerdb->get_where('ttransactions',['idfishowner'=>$idfishowner])->result();
+    }
+
+    public function getIDInvoices($idfishowner){
+        $query = $this->sellerdb->query("SELECT DISTINCT(idtransaksi) FROM ttransactions WHERE idfishowner='$idfishowner'");
+        return $query->result();
+    }
 }
 ?>

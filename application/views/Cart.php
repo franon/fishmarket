@@ -29,8 +29,8 @@
                         <?php if (isset($dataCart[0])) {?>
                             <?php foreach ($dataCart as $cart => $item):?>
                                 <tr>
-                                <input type="hidden" name="idCart" value="<?=$item->idcart?>">
-                                <!-- <input type="hidden" name="idfishowner" value="<?=$dataSeller?>"> -->
+                                <input type="hidden" name="idCart[]" value="<?=$item->idcart?>">
+                                <input type="hidden" name="idfishowner[]" value="<?=$item->idfishowner?>">
                                 <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
                                 
                                 <!-- nama product -->
@@ -105,8 +105,12 @@
                     <button type="submit" name="checkout" class="btn btn-lg btn-block btn-success text-uppercase">Checkout </button>
                 </div>
             </div>
+            <?php }elseif(empty($_SESSION['idcustomer'])){ ?>
+                <?php
+                echo "uwu";
+                ?>
             <?php }else{ ?>
-                <?php echo "NULL";?>
+                <?= "NULL"; ?>
             <?php } ?>
             </form>
             <!-- ====================AKHIR FORM============================ -->

@@ -18,13 +18,13 @@ class Cart extends CI_Controller{
             'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer']),
             // 'dataSeller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]->idfishowner
         ];
-        // var_dump($data['dataCart']);
+        // var_dump($_SESSION);
+        // var_dump($data['dataCart']);die;
         if (isset($_SESSION['cust_username'])) {
             $data['username'] = $_SESSION['cust_username'];
             $data['nama'] = $_SESSION['cust_nama'];}
             else{
-            $data['username'] = 'Masuk';
-            $data['nama'] = 'Masuk';
+                redirect('users/login','refresh');
         }
         
 
@@ -36,29 +36,37 @@ class Cart extends CI_Controller{
 
     function addToCart($kode){
         $dataUmum = [
-            'dataIkan' => $this->Model_fishmarket->getDataIkan($kode)[0],
+            'dataIkan' => $this->Model_fishmarket->getDataIkan($kode)[0],//menghasilkan data-data yang sesuai dengan kode ikan
             'idCustomer' => $_SESSION['idcustomer'],
-            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer'])[0],
-            'dataSeller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]->idfishowner
+            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer']),
+            'dataSeller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]
         ];
-        if(($dataUmum['idCustomer'] == $dataUmum['dataCart']->idcustomer)){
-         $query = $dataUmum['dataCart'];
-         $idCart = $query->idcart;
-        }else{
-            $idCart = 'crt'.'-'.random_string('numeric',3);
-        }
-        $data = [
-            'idcart' => $idCart,
-            'idfishowner' => $dataUmum['dataSeller'],
-            'idcustomer' => $dataUmum['idCustomer'],
-            'namaproduct' => $dataUmum['dataIkan']->fishgenericproductname,
-            'quantity' => 1,
-            'harga' => $dataUmum['dataIkan']->fishregularprice
-        ];
-
-        $this->Model_fishmarket->insertCart($data);
         
-        redirect('','refresh');
+        foreach ($dataUmum['dataCart'] as $key => $value) {
+            if($dataUmum['dataSeller']->idfishowner == $value->idfishowner){ //apakah ada IDFishowner yang sama dengan IDFishowner di Cart milik user
+                $idCart = $value->idcart;
+            }
+            
+        }
+        if(isset($_SESSION['idcustomer'])){ // mengecek apakah ada user yang sedang Login
+            if($idCart === null ){ //mengecek apakah ID Cart nya kosong. Jika kosong maka men-setting id cart random.
+                $idCart = 'crt'.'-'.random_string('numeric',3);
+            } //tetapi jika sudah di-set, makan akan menggunakan ID Cart yang sudah disetting untuk diteruskan ke DB Cart.
+                    $data = [
+                        'idcart' => $idCart,
+                        'idfishowner' => $dataUmum['dataSeller']->idfishowner,
+                        'idcustomer' => $dataUmum['idCustomer'],
+                        'namaproduct' => $dataUmum['dataIkan']->fishgenericproductname,
+                        'quantity' => 1,
+                        'harga' => $dataUmum['dataIkan']->fishregularprice
+                    ];
+
+            $this->Model_fishmarket->insertCart($data);//menginput pembelanjaan user yang ada didalam cart kedalam database.
+            
+            redirect('','refresh');}
+        else { // jika tidak ada yang login, makan user diharuskan untuk login atau akan dialihkan kehalaman utama.
+            redirect('','refresh');
+        }
         
     }
 }

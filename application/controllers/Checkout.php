@@ -13,29 +13,30 @@ class Checkout extends CI_Controller{
     function item(){
         //Berikut Data yang dibutuhkan untuk proses checkout tetapi TIDAK BERSIFAT array.
             $dataNonLoop = [
-            'idfishowner' => $this->input->post('idfishowner');
-            'idcustomer' => $_SESSION['idcustomer'],
-            'namacustomer' => $_SESSION['cust_nama'],
-            'idcart' => $this->input->post('idCart'),
-            'subtotal' => $this->input->post('subTotal'),
-            'shipping' => $this->input->post('shipping'),
-            'totalharga' => $this->input->post('totalHarga')    
-        ];
-        //Berikut Data yang dibutuhkan untuk proses checkout tetapi BERSIFAT array.
+                'idcustomer' => $_SESSION['idcustomer'],
+                'namacustomer' => $_SESSION['cust_nama'],
+                'subtotal' => $this->input->post('subTotal'),
+                'shipping' => $this->input->post('shipping'),
+                'totalharga' => $this->input->post('totalHarga')    
+            ];
+            //Berikut Data yang dibutuhkan untuk proses checkout tetapi BERSIFAT array.
             $dataLoop = [
+            'idcart' => $this->input->post('idCart'),
+            'idfishowner' => $this->input->post('idfishowner'),
             'namaproduct' => $this->input->post('namaProduct'),
             'quantity' => $this->input->post('quantity'),
             'harga' => $this->input->post('harga'),
         ];
-        
-        
-        // var_dump($this->input->post('cart'));die;
+
+        // var_dump($dataLoop['idcart']);die;
 
         //proses penginputan data-data yang diperlukan dan proses checkout
         $data = [];
         foreach ($dataLoop['namaproduct'] as $key => $value) {
             $data[] = [
-                'idcart' => $dataNonLoop['idcart'],
+                'idtransaksi' => 'trx-'.substr($dataLoop['idcart'][$key],4,3),
+                'idcart' => $dataLoop['idcart'][$key],
+                'idfishowner' => $dataLoop['idfishowner'][$key],
                 'idcustomer' => $dataNonLoop['idcustomer'],
                 'namacustomer' => $dataNonLoop['namacustomer'],
                 'namaproduct' => $dataLoop['namaproduct'][$key],
@@ -48,11 +49,12 @@ class Checkout extends CI_Controller{
             $this->Model_fishmarket->checkout($data[$key]);//Proses Checkout
         }
 
-        //Untuk meneruskan Request pemesanan kepada seller
+        // Untuk meneruskan Request pemesanan kepada seller
         foreach ($this->Model_fishmarket->getDataCheckout($dataNonLoop['idcustomer']) as $key => $value) {
             $dataCheckout[] = [
                 'idtransaksi' => $value->idtransaksi,
                 'idcustomer' => $value->idcustomer,
+                'idfishowner' => $value->idfishowner,
                 'namacustomer' => $value->namacustomer,
                 'namaproduct' => $value->namaproduct,
                 'quantity' => $value->quantity,
@@ -64,7 +66,7 @@ class Checkout extends CI_Controller{
             $this->Model_fishmarket->transactions($dataCheckout[$key]); //Proses pencatatan transaksi yang ditujukan kepada seller.
             
         }
-        $this->Model_fishmarket->deleteCart($dataNonLoop['idcart']); //Menghapus Cart setelah Proses checkout
+        // $this->Model_fishmarket->deleteCart($dataNonLoop['idcart']); //Menghapus Cart setelah Proses checkout
         redirect('','refresh');
         
         
