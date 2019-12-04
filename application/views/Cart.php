@@ -27,16 +27,21 @@
 
                         <!-- ID product -->
                         <?php if (isset($dataCart[0])) {?>
-                        <input type="hidden" name="idCart" value="<?=$dataCart[0]->idcart?>">
                             <?php foreach ($dataCart as $cart => $item):?>
-                            <tr>
+                                <tr>
+                                <input type="hidden" name="idCart" value="<?=$item->idcart?>">
+                                <!-- <input type="hidden" name="idfishowner" value="<?=$dataSeller?>"> -->
                                 <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
+                                
                                 <!-- nama product -->
                                 <td><?=$item->namaproduct?></td>
+                                <!-- <input type="hidden" name="cart[<?= $cart; ?>]['namaproduct']" value="<?=$item->namaproduct?>"> -->
                                 <input type="hidden" name="namaProduct[]" value="<?=$item->namaproduct?>">
+
                                 <!-- kwantitas product -->
                                 <td>In stock</td>
                                 <td><input class="form-control" type="text" name="quantity[]" value="<?=$item->quantity?>" /></td>
+
                                 <!-- harga product -->
                                 <td class="text-right">Rp. <?=$item->harga?></td>
                                 <input type="hidden" name="harga[]" value="<?=$item->harga?>">

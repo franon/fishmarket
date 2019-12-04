@@ -15,7 +15,8 @@ class Cart extends CI_Controller{
         $data = [
             'username' => null,
             'nama' => null,
-            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer'])
+            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer']),
+            // 'dataSeller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]->idfishowner
         ];
         // var_dump($data['dataCart']);
         if (isset($_SESSION['cust_username'])) {
@@ -37,23 +38,18 @@ class Cart extends CI_Controller{
         $dataUmum = [
             'dataIkan' => $this->Model_fishmarket->getDataIkan($kode)[0],
             'idCustomer' => $_SESSION['idcustomer'],
-            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer'])[0]
+            'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer'])[0],
+            'dataSeller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]->idfishowner
         ];
-        // var_dump($dataUmum['dataCart']);die;
-        // var_dump($dataUmum['dataCart']);die;
-        // var_dump($this->Model_fishmarket->getDataCart($dataUmum['idCustomer'])[0]->idcustomer);die;
-        // var_dump($dataUmum['idCustomer'] == $dataUmum['dataCart'][0]->idcustomer);die;
-        // if ($dataUmum['idCustomer'] == $dataUmum['dataCart']->idcustomer) {
-            // var_dump(($dataUmum['idCustomer'] == $this->Model_fishmarket->getDataCart($dataUmum['idCustomer'])));die;
         if(($dataUmum['idCustomer'] == $dataUmum['dataCart']->idcustomer)){
          $query = $dataUmum['dataCart'];
          $idCart = $query->idcart;
         }else{
             $idCart = 'crt'.'-'.random_string('numeric',3);
         }
-
         $data = [
             'idcart' => $idCart,
+            'idfishowner' => $dataUmum['dataSeller'],
             'idcustomer' => $dataUmum['idCustomer'],
             'namaproduct' => $dataUmum['dataIkan']->fishgenericproductname,
             'quantity' => 1,

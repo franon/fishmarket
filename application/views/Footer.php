@@ -1,4 +1,14 @@
-  <!-- Footer -->
+<!-- <script>
+$(document).ready(function(){
+  var count = 0;
+
+  $('#checkout').click(function(){
+
+  });
+}); -->
+</script>
+
+<!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Fishmarket 2019</p>

@@ -126,7 +126,7 @@
               </div>
             </div>
           </div>
-          <?=print_r($item);?>
+          <!-- <?=print_r($item);?> -->
           <?php foreach ($item as $nmrIkan => $ikan):?>
             <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">

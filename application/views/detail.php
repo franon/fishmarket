@@ -9,8 +9,12 @@
         <p class="card-text"><?=$ikan->fishnoteofproduct?>.</p>
         <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
         4.0 stars
+        <a href=" <?= BASE_URL();?>cart/addToCart/<?=$ikan->fishkodeofproductsale?>"><i class="fas fa-cart-plus"></i>add to cart</a>
       </div>
-      <a href=" <?= BASE_URL();?>cart/addToCart/<?=$ikan->fishkodeofproductsale?>"><i class="fas fa-cart-plus"></i>add to cart</a>
+      <div class="card-body">
+        <h5> <strong><?=$seller->kiosname?></strong></h5>
+      </div>
+      
     </div>
     <!-- /.card -->
 

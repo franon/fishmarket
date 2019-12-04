@@ -21,8 +21,11 @@ class Detail extends CI_Controller{
         $data = [
             'ikan' => $this->Model_fishmarket->getDataIkan($kode)[0],
             'username' => null,
-            'nama' => null
+            'nama' => null,
+            'seller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]
         ];
+
+        var_dump($data['seller']);
         if (isset($_SESSION['cust_username'])) {
             $data['username'] = $_SESSION['cust_username'];
             $data['nama'] = $_SESSION['cust_nama'];
