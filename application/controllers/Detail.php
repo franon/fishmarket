@@ -24,8 +24,14 @@ class Detail extends CI_Controller{
             'nama' => null,
             'seller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]
         ];
+        if (empty($_SESSION['idcoin'])) {
+            //tidak ada
+        }else{
+            $idcoin = $_SESSION['idcoin'];
+            $data['saldo'] = json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcoin))->data[0];
+        }
 
-        var_dump($data['seller']);
+        // var_dump($data['seller']);
         if (isset($_SESSION['cust_username'])) {
             $data['username'] = $_SESSION['cust_username'];
             $data['nama'] = $_SESSION['cust_nama'];

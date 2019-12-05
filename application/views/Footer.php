@@ -98,7 +98,7 @@
 					</div>
 					<div class="form-group">
 						<label for="topup">topup</label>
-						<input type="text" class="form-control" id="topup" name="topup" placeholder="topup">
+						<input type="number" class="form-control" id="topup" name="topup" placeholder="topup">
 					</div>
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="exampleCheck1">
