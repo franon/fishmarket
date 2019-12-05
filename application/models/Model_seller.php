@@ -69,12 +69,12 @@ class model_seller extends CI_Model {
         return $this->sellerdb->affected_rows();
     }    
 
-    public function getInvoices($idfishowner){
-        return $this->sellerdb->get_where('ttransactions',['idfishowner'=>$idfishowner])->result();
+    public function getInvoices($idtransaksi){
+        return $this->sellerdb->get_where('ttransactions',['idtransaksi'=>$idtransaksi])->result();
     }
 
     public function getIDInvoices($idfishowner){
-        $query = $this->sellerdb->query("SELECT DISTINCT(idtransaksi) FROM ttransactions WHERE idfishowner='$idfishowner'");
+        $query = $this->sellerdb->query("SELECT DISTINCT(idtransaksi),namacustomer FROM ttransactions WHERE idfishowner='$idfishowner'");
         return $query->result();
     }
 }

@@ -91,6 +91,7 @@ class Mahasiswa extends REST_Controller{
 
     function index_put(){
         $id = $this->put('id');
+        // var_dump($id);die;
         $data = [
             'nrp' => $this->put('nrp'),
             'nama' => $this->put('nama'),

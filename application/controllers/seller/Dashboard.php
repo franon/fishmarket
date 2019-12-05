@@ -21,7 +21,7 @@ Class dashboard extends CI_Controller {
 
         $this->load->view('seller/header',$nama);
         $this->load->view('seller/dashboard');
-        // $this->load->view('seller/footer');
+        $this->load->view('seller/footer');
         // var_dump($_SESSION['statusLogin']);
         // var_dump($this->test_Login());
     }

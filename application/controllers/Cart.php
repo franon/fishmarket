@@ -11,21 +11,29 @@ class Cart extends CI_Controller{
     }
 
     public function index(){
-
         $data = [
             'username' => null,
             'nama' => null,
             'dataCart' => $this->Model_fishmarket->getDataCart($_SESSION['idcustomer']),
             // 'dataSeller' => $this->Model_fishmarket->getDataSeller($this->Model_fishmarket->getDataIkan($kode)[0]->idfishkios)[0]->idfishowner
         ];
-        // var_dump($_SESSION);
-        // var_dump($data['dataCart']);die;
+
         if (isset($_SESSION['cust_username'])) {
             $data['username'] = $_SESSION['cust_username'];
             $data['nama'] = $_SESSION['cust_nama'];}
             else{
                 redirect('users/login','refresh');
         }
+        
+        if (empty($_SESSION['idcoin'])) {
+            
+        }else{
+            $idcoin = $_SESSION['idcoin'];
+            $data['saldo'] = json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcoin))->data[0];
+        }
+        // var_dump($_SESSION);
+        // var_dump($data['dataCart']);die;
+        
         
 
         

@@ -47,11 +47,21 @@
             </div>
           </form>
       <!-- end topbar search -->
-
-
-
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown no-arrow">
+						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-dollar-sign"></i><?= isset($_SESSION['idcoin']) ? $saldo->balance : '0';?>
+						</a>
+						<!-- Dropdown - Saldo Info -->
+						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+							<a class="dropdown-item" href="#">
+								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+								Top Up Saldo
+							</a>
+						</div>
+					</li>
           <li class="nav-item">
             <!-- abaikan -->
             <a class="btn btn-success btn-sm ml-3" href="<?= BASE_URL();?>cart">

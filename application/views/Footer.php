@@ -74,6 +74,46 @@
 			<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-				<a class="btn btn-primary" href=<?=BASE_URL();?>users/login/logout>Logout </a> </div> </div> </div> </div>
+				<a class="btn btn-primary" href=<?=BASE_URL();?>users/login/logout>Logout </a> 
+			</div> 
+		</div> 
+	</div> 
+</div>
+
+<!-- Top Up Modal -->
+<div class="modal fade" id="topupmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Top Up Saldo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	  <form action="<?=base_url();?>homepage/topUpSaldo" method="post">
+					<div class="form-group">
+						<label for="saldo">Saldo</label>
+						<input type="text" class="form-control" id="saldo" name="saldo" placeholder="<?=$saldo->balance;?>" disabled>
+					</div>
+					<div class="form-group">
+						<label for="topup">topup</label>
+						<input type="text" class="form-control" id="topup" name="topup" placeholder="topup">
+					</div>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+						<label class="form-check-label" for="exampleCheck1">remember me</label>
+					</div>
+					<!-- <button type="submit" class="btn btn-primary">Login</button> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Top Up</button>
+				</div>
+			</form>
+      </div>
+    </div>
+  </div>
+</div>
   </body> 
 </html>

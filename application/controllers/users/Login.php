@@ -37,6 +37,7 @@ class Login extends CI_Controller{
                     'idcustomer' => $user->idcustomer,
                     'cust_username' => $user->username,
                     'cust_nama' => $user->namacustomer,
+                    'idcoin' => $user->idcoin,
                     'tglLogin' => date('Y-m-d H:m:s')
                 ];
                 $this->session->set_userdata($data);

@@ -17,28 +17,45 @@
           <tr>
             <th>ID Transaksi</th>
             <th>Nama Customer</th>
-            <th>Tindakan</th>
+            <th>Nama Ikan</th>
+            <th>Quantity</th>
+            <th>Harga</th>
+            <th>Shipping</th>
+            <th>Status</th>
+            
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>ID Transaksi</th>
             <th>Nama Customer</th>
-            <th>Tindakan</th>
+            <th>Nama Ikan</th>
+            <th>Quantity</th>
+            <th>Harga</th>
+            <th>Shipping</th>
+            <th>Status</th>
+            
           </tr>
         </tfoot>
         <tbody>
-            <?php foreach ($idInvoices as $key => $value): ?>
+        <?php $totalharga=0; ?>
+            <?php foreach ($dataInvoices as $key => $value): ?>
                 <tr>
-                    <td><?=$value->idtransaksi;?></td>
+                <!-- <td><a href="#"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#kirimBarang"><i class="fas fa-plus"> </i> <?=$value->idtransaksi;?></button></a></td> -->
+                    <td><?=$idtransaksi = $value->idtransaksi;?></td>
                     <td><?=$value->namacustomer;?></td>
-                    <td><a href="<?=BASE_URL();?>seller/invoices/detailInvoices/<?=$value->idtransaksi;?>"><button type="button" class="btn btn-outline-success"> Lihat Detail</button></a>
-                    <a href="#"><button type="button" class="btn btn-outline-danger"> Tolak Pesanan</button></a>
-                    </td>
+                    <td><?=$value->namaproduct;?></td>
+                    <td><?=$value->quantity;?></td>
+                    <td><?=$value->harga;?></td>
+                    <td><?=$value->shipping;?></td>
+                    <?php $totalharga = $totalharga + $value->harga;?>
                 </tr>
                 <?php endforeach; ?>
+                Pendapatan Kamu : Rp. <?=$totalharga?>
         </tbody>
       </table>
+      <a href="<?=base_url();?>seller/invoices/kirimBarang/<?=$idtransaksi?>"><button type="button" class="btn btn-outline-warning">Kirim Barang</button></a>
+
     </div>
   </div>
 </div>
