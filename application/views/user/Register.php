@@ -9,7 +9,7 @@
 <body>
 <form action="<?= BASE_URL();?>users/Register" method="post">
 
-<label for="namacustomer">Username</label> <br>
+<label for="namacustomer">Nama Lengkap</label> <br>
 <input type="text" name="namacustomer" id="namacustomer" placeholder="namacustomer"><br><br>
 
 <label for="email">Email</label> <br>

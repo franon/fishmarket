@@ -10,42 +10,6 @@ class Checkout extends CI_Controller{
         $this->load->model('Model_fishmarket');
     }
 
-    function callAPI($method, $url, $data){
-        $curl = curl_init();
-
-        switch ($method){
-            case "POST":
-                curl_setopt($curl, CURLOPT_POST, 1);
-                if ($data)
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-                break;
-            case "PUT":
-                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
-                if ($data)
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
-                break;
-            default:
-                if ($data)
-                    $url = sprintf("%s?%s", $url, http_build_query($data));
-        }
-
-        // OPTIONS:
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'APIKEY: 111111111111111111111',
-            'Content-Type: application/json',
-        ));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-
-        // EXECUTE:
-        $result = curl_exec($curl);
-        if(!$result){die("Connection Failure");}
-        curl_close($curl);
-        return $result;
-    }
-    
-    
     function item(){
         //Berikut Data yang dibutuhkan untuk proses checkout tetapi TIDAK BERSIFAT array.
             $dataNonLoop = [
@@ -67,65 +31,79 @@ class Checkout extends CI_Controller{
                 'harga' => $this->input->post('harga')
             ];
 
-        // ========PROSES PENGINPUTAN DATA-DATA YANG DIPERLUKAN DAN PROSES CHECKOUT=========
-        $data = [];
-        foreach ($dataLoop['namaproduct'] as $key => $value) {
-            $data[] = [
-                'idtransaksi' => 'trx-'.substr($dataLoop['idcart'][$key],4,3),
-                'idcart' => $dataLoop['idcart'][$key],
-                'idfishowner' => $dataLoop['idfishowner'][$key],
-                'idcustomer' => $dataNonLoop['idcustomer'],
-                'namacustomer' => $dataNonLoop['namacustomer'],
-                'namaproduct' => $dataLoop['namaproduct'][$key],
-                'quantity' => $dataLoop['quantity'][$key],
-                'harga' => $dataLoop['harga'][$key],
-                'subtotal' => $dataNonLoop['subtotal'],
-                'shipping' => $dataNonLoop['shipping'], 
-                'totalharga' => $dataNonLoop['totalharga'],
-            ];
-            $this->Model_fishmarket->checkout($data[$key]);//Proses Checkout
-            $this->Model_fishmarket->deleteCart($dataLoop['idcart'][$key]); //Menghapus Cart setelah Proses checkout
-        }
+        // ========================== CEK SALDO CUSTOMER ============================
+                $idcustomercoin = $_SESSION['idcustomercoin'];
+                $saldo = json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcustomercoin))->data[0];
+                // var_dump($saldo->balance);die;
+                if ($saldo->balance < $dataNonLoop['totalharga']) {
+                    $this->session->set_flashdata('notifsaldo','Saldo kamu kurang');
+                    redirect('','refresh');die;
+                }else{
+
+                    $data = array(
+                        'coin-key' => 'co-1',
+                        'id' => $_SESSION['idcustomercoin'],
+                        'bayar' => $dataNonLoop['totalharga']
+                    );
+            
+                    // var_dump($data);die;
+                    $data_string = json_encode($data);
+                    $api_url = "http://localhost/Coin/api/Coin/saldo/";
+                    
+                    $curl = curl_init($api_url);
+                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    // curl_setopt($curl, CURLOPT_POST, true); //ini jika datanya post
+                    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                        'Content-Type: application/json',
+                            'Content-Length: ' . strlen($data_string))
+                    );
+                    $result = curl_exec($curl);
+                    if(!$result){die("Connection Failure");}
+                    curl_close($curl);
+
+                    // ========PROSES PENGINPUTAN DATA-DATA YANG DIPERLUKAN DAN PROSES CHECKOUT=========
+                    $data = [];
+                    foreach ($dataLoop['namaproduct'] as $key => $value) {
+                        $data[] = [
+                            'idtransaksi' => 'trx-'.substr($dataLoop['idcart'][$key],4,3),
+                            'idcart' => $dataLoop['idcart'][$key],
+                            'idfishowner' => $dataLoop['idfishowner'][$key],
+                            'idcustomer' => $dataNonLoop['idcustomer'],
+                            'namacustomer' => $dataNonLoop['namacustomer'],
+                            'namaproduct' => $dataLoop['namaproduct'][$key],
+                            'quantity' => $dataLoop['quantity'][$key],
+                            'harga' => $dataLoop['harga'][$key],
+                            'subtotal' => $dataNonLoop['subtotal'],
+                            'shipping' => $dataNonLoop['shipping'], 
+                            'totalharga' => $dataNonLoop['totalharga'],
+                        ];
+                        $this->Model_fishmarket->checkout($data[$key]);//Proses Checkout
+                        $this->Model_fishmarket->deleteCart($dataLoop['idcart'][$key]); //Menghapus Cart setelah Proses checkout
+                    }
+            
+                    // ================ UNTUK MENERUSKAN REQUEST PESANAN KEPADA SELLER ===========
+                    foreach ($this->Model_fishmarket->getDataCheckout($dataNonLoop['idcustomer']) as $key => $value) {
+                        $dataCheckout[] = [
+                            'idtransaksi' => $value->idtransaksi,
+                            'idcustomer' => $value->idcustomer,
+                            'idfishowner' => $value->idfishowner,
+                            'namacustomer' => $value->namacustomer,
+                            'namaproduct' => $value->namaproduct,
+                            'quantity' => $value->quantity,
+                            'harga' => $value->harga,
+                            'subtotal' => $value->subtotal,
+                            'shipping' => $value->shipping ,
+                            'totalharga' => $value->totalharga,
+                        ];
+                        $this->Model_fishmarket->transactions($dataCheckout[$key]); //Proses pencatatan transaksi yang ditujukan kepada seller.
+                    }
+                    redirect('','refresh');
+                }
+
 
         // =======================MENGURANGI SALDO CUSTOMER ===========================
-        $data = array(
-            'coin-key' => 'co-1',
-            'id' => $_SESSION['idcoin'],
-            'bayar' => $dataNonLoop['totalharga']
-        );
-        $data_string = json_encode($data);
-        $api_url = "http://localhost/Coin/api/Coin/saldo/";
-        
-        $curl = curl_init($api_url);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($curl, CURLOPT_POST, true); //ini jika datanya post
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string))
-        );
-        $result = curl_exec($curl);
-        if(!$result){die("Connection Failure");}
-        curl_close($curl);
-
-        // ================ UNTUK MENERUSKAN REQUEST PESANAN KEPADA SELLER ===========
-        foreach ($this->Model_fishmarket->getDataCheckout($dataNonLoop['idcustomer']) as $key => $value) {
-            $dataCheckout[] = [
-                'idtransaksi' => $value->idtransaksi,
-                'idcustomer' => $value->idcustomer,
-                'idfishowner' => $value->idfishowner,
-                'namacustomer' => $value->namacustomer,
-                'namaproduct' => $value->namaproduct,
-                'quantity' => $value->quantity,
-                'harga' => $value->harga,
-                'subtotal' => $value->subtotal,
-                'shipping' => $value->shipping ,
-                'totalharga' => $value->totalharga,
-            ];
-            $this->Model_fishmarket->transactions($dataCheckout[$key]); //Proses pencatatan transaksi yang ditujukan kepada seller.
-        }
-        redirect('','refresh');
         
         
 

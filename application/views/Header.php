@@ -55,7 +55,7 @@
 					<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-dollar-sign"></i><?= isset($_SESSION['idcoin']) ? $saldo->balance : '0';?>
+							<i class="fas fa-dollar-sign"></i><?= isset($_SESSION['idcustomercoin']) ? $saldo->balance : '0';?>
 						</a>
 						<!-- Dropdown - Saldo Info -->
 						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -101,9 +101,9 @@
 								<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 								Settings
 							</a>
-							<a class="dropdown-item" href="#">
+							<a class="dropdown-item" href="<?=BASE_URL();?>transaksi/list">
 								<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-								Activity Log
+								Transaksiku
 							</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

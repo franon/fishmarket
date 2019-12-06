@@ -131,7 +131,7 @@
 		<div class="col-lg-4 col-md-6 mb-4">
 			<div class="card h-100">
 				<a href="<?=BASE_URL();?>detail/item/<?=$ikan->fishkodeofproductsale?>"><img class="card-img-top"
-						src="<?= BASE_URL();?>assets/img/crab.jpg" alt=""></a>
+						src="<?= BASE_URL();?>assets/img/<?=$ikan->fishkodeofproductsale?>.jpg" alt=""></a>
 				<div class="card-body">
 					<h4 class="card-title">
 						<a

@@ -11,17 +11,18 @@ class homepage extends CI_Controller{
     }
 
     public function index(){
+        echo empty($_SESSION['notifsaldo'])? 'ok' : $_SESSION['notifsaldo']  ;
         //jika tidak ada ID COIN, maka akan dipersilahkan untuk login
-        if (empty($_SESSION['idcoin'])) {
+        if (empty($_SESSION['idcustomercoin'])) {
             $data = [
             'item' => $this->Model_fishmarket->getDataIkan(),
             'saldo' => 'u must Login'
         ];
         }else{
-            $idcoin = $_SESSION['idcoin'];
+            $idcustomercoin = $_SESSION['idcustomercoin'];
             $data = [
             'item' => $this->Model_fishmarket->getDataIkan(),
-            'saldo' => json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcoin))->data[0]
+            'saldo' => json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcustomercoin))->data[0]
         ];
         }
         if (isset($_SESSION['cust_username'])) {
@@ -34,13 +35,13 @@ class homepage extends CI_Controller{
 
         $this->load->view('header',$data);
         $this->load->view('content',$data);
-        $this->load->view('footer');
+        $this->load->view('footer',$data);
     }
     
     public function topUpSaldo(){
         $data = array(
             'coin-key' => 'co-1',
-            'id' => $_SESSION['idcoin'],
+            'id' => $_SESSION['idcustomercoin'],
             'topUp' => $this->input->post('topup')
             // 'topUp' => 20000
         );

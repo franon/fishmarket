@@ -52,7 +52,7 @@
         <li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-dollar-sign"></i><?= isset($_SESSION['idcoin']) ? $saldo->balance : '0';?>
+							<i class="fas fa-dollar-sign"></i><?= isset($_SESSION['idcustomercoin']) ? $saldo->balance : '0';?>
 						</a>
 						<!-- Dropdown - Saldo Info -->
 						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

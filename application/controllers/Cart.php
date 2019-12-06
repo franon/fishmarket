@@ -25,11 +25,11 @@ class Cart extends CI_Controller{
                 redirect('users/login','refresh');
         }
         
-        if (empty($_SESSION['idcoin'])) {
+        if (empty($_SESSION['idcustomercoin'])) {
             
         }else{
-            $idcoin = $_SESSION['idcoin'];
-            $data['saldo'] = json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcoin))->data[0];
+            $idcustomercoin = $_SESSION['idcustomercoin'];
+            $data['saldo'] = json_decode(file_get_contents('http://localhost/Coin/api/Coin/saldo/?coin-key=co-1&id='.$idcustomercoin))->data[0];
         }
         // var_dump($_SESSION);
         // var_dump($data['dataCart']);die;
@@ -53,6 +53,8 @@ class Cart extends CI_Controller{
         foreach ($dataUmum['dataCart'] as $key => $value) {
             if($dataUmum['dataSeller']->idfishowner == $value->idfishowner){ //apakah ada IDFishowner yang sama dengan IDFishowner di Cart milik user
                 $idCart = $value->idcart;
+            }else{
+                $idCart = null;
             }
             
         }

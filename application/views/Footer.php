@@ -52,7 +52,7 @@
 					<!-- <button type="submit" class="btn btn-primary">Login</button> -->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<a href="<?=BASE_URL();?>user/register"><button type="button" class="btn btn-secondary">Register</button></a>
 					<button type="submit" class="btn btn-primary">Login</button>
 				</div>
 			</form>
@@ -99,10 +99,6 @@
 					<div class="form-group">
 						<label for="topup">topup</label>
 						<input type="number" class="form-control" id="topup" name="topup" placeholder="topup">
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1">
-						<label class="form-check-label" for="exampleCheck1">remember me</label>
 					</div>
 					<!-- <button type="submit" class="btn btn-primary">Login</button> -->
 				</div>
